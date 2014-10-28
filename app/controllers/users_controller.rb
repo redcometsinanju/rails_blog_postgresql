@@ -1,13 +1,20 @@
 class UsersController < ApplicationController
+
 	def new
 	end
 
 	def create
 		@user = User.new(user_params)
 		if @user.save
+      # Tell the UserMailer to send a welcome email after save
+      # UserMailer.welcome_email(@user).deliver
 			redirect_to posts_path
 		else
-			redirect_to new_user_path
+			errors = ""
+			@user.errors.each do |key, value|
+				errors << "#{key}: #{value}"
+			end
+			redirect_to new_user_path, notice: errors
 		end
 	end
 
