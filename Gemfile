@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'bcrypt'
-
+gem 'typhoeus'
 gem 'pry'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

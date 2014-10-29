@@ -1,9 +1,10 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "welcome@moodly.com"
 
   def welcome_email(user)
     @user = user
-    @url  = 'http://example.com/login'
-    mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+    email_with_name = "#{@user.username} <#{@user.email}>"
+    @url  = 'localhost:3000/users/new'
+    mail(to: email_with_name, subject: 'Welcome to Moodly!')
   end
 end

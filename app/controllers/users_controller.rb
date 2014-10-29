@@ -32,9 +32,45 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
+
 		if @user.save
       # Tell the UserMailer to send a welcome email after save
       # UserMailer.welcome_email(@user).deliver
+      domain = 'sandboxab13a54924b44d0185046d49a35a2640.mailgun.org'
+      api_key = 'key-0664c48b5f3a9476227dc0f6f48c3191'
+
+      username = 'api'
+      password = api_key
+      url = "https://api.mailgun.net/v2/#{domain}/messages"
+
+      params = {
+          :from => "Mailgun Sandbox <postmaster@moodly.com>",
+          :to => "#{@user.email}",
+          :subject => "Welcome to Moodly #{@user.username}",
+          :html => "<h3>You have successfully signed up to Moodly.com</h3>
+          - Massively Open Online Discussion board -
+          <br>
+          ==============================================
+          <br>
+          <br>
+          Your username is #{@user.username}. 
+          <br>
+          <br>
+          To login to the site, click <a href='http://localhost:3000'>here</a>.
+          <br>
+          <br>
+          Thanks for joining!"
+      }
+
+      options = {
+          method: :post,
+          params: params,
+          userpwd: "#{username}:#{password}"
+      }
+
+      trequest = Typhoeus::Request.new(url, options)
+      tresponse = trequest.run()
+
 			redirect_to posts_path, notice: 'Sign up successful. Please sign in.'
 		else
 			errors = ""
@@ -43,6 +79,7 @@ class UsersController < ApplicationController
 			end
 			redirect_to new_user_path, notice: errors
 		end
+
 	end
 
 	# Finds the user depending on the :id of the user, from users/2, will return user 2
