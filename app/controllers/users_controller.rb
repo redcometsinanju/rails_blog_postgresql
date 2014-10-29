@@ -1,5 +1,32 @@
 class UsersController < ApplicationController
 
+  def index
+  	@allusers = User.all
+    @users = []
+    if params[:search] == ''
+      @users = User.all
+    elsif !params[:search].nil?
+      search = params[:search].downcase
+      @users = User.where("lower(username) like ?", "%#{search}%")
+    end
+    
+    sent = current_user.invites_sent
+    sent_to = sent.map {|friend| User.find(friend.guest_id)}
+    received = current_user.invites_received
+    received_from = received.map {|friend| User.find(friend.host_id)}
+    
+    @friends = sent_to + received_from
+    @not_friends = @allusers - @friends
+    
+    render :index
+  end
+
+  def invite
+  	# binding.pry
+  	current_user.invites_sent.push(ChatInvite.new(guest: User.find(params[:guest_id])))
+  	redirect_to posts_path
+  end
+
 	def new
 	end
 
@@ -8,7 +35,7 @@ class UsersController < ApplicationController
 		if @user.save
       # Tell the UserMailer to send a welcome email after save
       # UserMailer.welcome_email(@user).deliver
-			redirect_to posts_path
+			redirect_to posts_path, notice: 'Sign up successful. Please sign in.'
 		else
 			errors = ""
 			@user.errors.each do |key, value|

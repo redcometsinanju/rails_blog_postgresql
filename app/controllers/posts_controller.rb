@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    @allposts = Post.all
     if current_user
       @posts = current_user.posts.all
     else

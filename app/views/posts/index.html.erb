@@ -1,5 +1,98 @@
-<h1>Listing posts</h1>
+<h3>News Feed</h3>
+<hr>
+<div class="row">
+  <div class="col-md-4">
+		<div class="feedzilla-news-widget feedzilla-3580152718350291" style="width:320px; padding: 0; text-align: center; font-size: 11px; border: 0;">
+		<script type="text/javascript" src="http://widgets.feedzilla.com/news/iframe/js/widget.js"></script>
+		<script type="text/javascript">
+		new FEEDZILLA.Widget({
+			style: 'slide-top-to-bottom',
+			culture_code: 'en_us',
+			headerBackgroundColor: '#8b9dc3',
+			footerBackgroundColor: '#dfe3ee',
+			title: 'Top Stories',
+			order: 'date',
+			count: '50',
+			w: '360',
+			h: '360',
+			timestamp: 'true',
+			scrollbar: 'true',
+			theme: 'ui-lightness',
+			className: 'feedzilla-3580152718350291',
+			tabs: [{name: 'Top Stories', c: '19', sc: '1009'}, {name: 'Americas', c: '19', sc: '884'}, {name: 'Europe', c: '19', sc: '941'}, {name: 'Asia', c: '19', sc: '885'}]
+		});
+		</script><br />
+		</div>
+	</div>
 
+  <div class="col-md-4">
+		<div class="feedzilla-news-widget feedzilla-6314542514737695" style="width:320px; padding: 0; text-align: center; font-size: 11px; border: 0;">
+		<script type="text/javascript" src="http://widgets.feedzilla.com/news/iframe/js/widget.js"></script>
+		<script type="text/javascript">
+		new FEEDZILLA.Widget({
+			style: 'slide-top-to-bottom',
+			culture_code: 'en_us',
+			headerBackgroundColor: '#8b9dc3',
+			footerBackgroundColor: '#dfe3ee',
+			title: 'Business',
+			order: 'date',
+			count: '50',
+			w: '360',
+			h: '360',
+			timestamp: 'true',
+			scrollbar: 'true',
+			theme: 'ui-lightness',
+			className: 'feedzilla-6314542514737695',
+			tabs: [{name: 'Economy', c: '22', sc: '1092'}, {name: 'Companies', c: '22', sc: '1076'}, {name: 'Employment', c: '22', sc: '1093'}, {name: 'Finance', c: '22', sc: '1097'}, {name: 'Markets', c: '22', sc: '1139'}]
+		});
+		</script><br />
+		</div>
+	</div>
+
+
+  <div class="col-md-4">
+		<div class="feedzilla-news-widget feedzilla-19560231151990592" style="width:320px; padding: 0; text-align: center; font-size: 11px; border: 0;">
+		<script type="text/javascript" src="http://widgets.feedzilla.com/news/iframe/js/widget.js"></script>
+		<script type="text/javascript">
+		new FEEDZILLA.Widget({
+			style: 'slide-top-to-bottom',
+			culture_code: 'en_us',
+			headerBackgroundColor: '#8b9dc3',
+			footerBackgroundColor: '#dfe3ee',
+			title: 'Technology',
+			order: 'date',
+			count: '50',
+			w: '360',
+			h: '360',
+			timestamp: 'true',
+			scrollbar: 'true',
+			theme: 'ui-lightness',
+			className: 'feedzilla-19560231151990592',
+			tabs: [{name: 'Companies', c: '30', sc: '1618'}, {name: 'Emerging Technology', c: '30', sc: '1867'}, {name: 'Software', c: '30', sc: '1875'}, {name: 'Hardware', c: '30', sc: '1632'}]
+		});
+		</script><br />
+		</div>
+	</div>
+
+</div>
+<br>
+
+<h3>Top Discussions</h3>
+<hr>
+<% @allposts.in_groups_of(3) do |group| %>
+  <div class="row">
+    <% group.compact.each do |post| %>
+      <div class="col-md-4">
+        <%= image_tag post.image_url, width: '100%' if post.image.present?%>
+        <h4><%= link_to post.title, post %></h4>
+        <%= post.description %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h3>Your Discussions</h3>
+<hr>
 <% @posts.in_groups_of(3) do |group| %>
   <div class="row">
     <% group.compact.each do |post| %>
