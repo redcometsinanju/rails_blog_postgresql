@@ -22,6 +22,10 @@
     <%= f.label :password %><br>
     <%= f.password_field :password %>
   </div>
+  <div class="field">
+    <%= f.label :image, "Photo" %><br>
+    <%= f.file_field :image %>
+  </div>
   <br>
   <div class="actions">
     <%= f.submit(value = "Update Profile") %>
