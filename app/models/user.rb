@@ -3,12 +3,14 @@ class User < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
 	has_many :posts
+  has_many :comments
 
 	validates :email, uniqueness: true
 
   has_many :invites_sent, class_name: 'ChatInvite', foreign_key: 'host_id'
   has_many :invites_received, class_name: 'ChatInvite', foreign_key: 'guest_id'
 
+  # Valentine's code for Project 2. It is not called anywhere in my current project.
   def is_my_friend?(my_friend)
     friendships.each do |friendship|
       if friendship.friend_id == my_friend.id

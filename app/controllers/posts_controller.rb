@@ -34,6 +34,13 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
 
+    # Embedly template for one url
+    news = "http://api.embed.ly/1/extract?key=f981d78d1ca8482abf4f23564435e0ff&url=#{params[:post][:url]}"
+    result = Typhoeus.get(news)
+    data = JSON.parse(result.body)
+    image_url = data["images"][0]["url"]
+    @post.img_url = image_url
+
     respond_to do |format|
       if @post.save
         format.html { redirect_to posts_path, notice: 'Post was successfully created.' }

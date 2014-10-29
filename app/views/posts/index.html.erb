@@ -14,7 +14,7 @@
 			order: 'date',
 			count: '50',
 			w: '360',
-			h: '360',
+			h: '240',
 			timestamp: 'true',
 			scrollbar: 'true',
 			theme: 'ui-lightness',
@@ -38,7 +38,7 @@
 			order: 'date',
 			count: '50',
 			w: '360',
-			h: '360',
+			h: '240',
 			timestamp: 'true',
 			scrollbar: 'true',
 			theme: 'ui-lightness',
@@ -63,7 +63,7 @@
 			order: 'date',
 			count: '50',
 			w: '360',
-			h: '360',
+			h: '240',
 			timestamp: 'true',
 			scrollbar: 'true',
 			theme: 'ui-lightness',
@@ -83,7 +83,7 @@
   <div class="row">
     <% group.compact.each do |post| %>
       <div class="col-md-4">
-        <%= image_tag post.image_url, width: '100%' if post.image.present?%>
+        <%= image_tag post.img_url, width: '100%' if post.img_url.present?%>
         <br>
         <br>
         <h4 style="display:inline"><%= link_to post.title, post %></h4> | <%= link_to "Link to article", post.url %>
@@ -100,7 +100,7 @@
   <div class="row">
     <% group.compact.each do |post| %>
       <div class="col-md-4">
-        <%= image_tag post.image_url, width: '100%' if post.image.present?%>
+        <%= image_tag post.img_url, width: '100%' if post.img_url.present?%>
         <br>
         <br>
         <h4 style="display:inline"><%= link_to post.title, post %></h4> | <%= link_to "Link to article", post.url %>
