@@ -44,23 +44,23 @@
 
 <script type="text/javascript">
 
-// setInterval(function(){
-//   var request = $.ajax({
-//   url: '/posts/<%=@post.id%>',
-//   type: "GET",
-//   dataType: "json"
-// });
-// console.log(request)
+setInterval(function(){
+  var request = $.ajax({
+  url: '/posts/<%=@post.id%>',
+  type: "GET",
+  dataType: "json"
+});
+console.log(request)
 
-// request.done(function(data){
-//   var num_comments = $(".comment").length
-//   if(data.length > num_comments){
-//     var c = data[data.length-1]
-//     var name_str = "<strong>" + c.user_name + "</strong>"
-//     $("#comments_div").prepend(name_str +": "+ "<span class='comment'>"+c.comment_body + "</span><br><br>")
-//   }
-// })
+request.done(function(data){
+  var num_comments = $(".comment").length
+  if(data.length > num_comments){
+    var c = data[data.length-1]
+    var name_str = "<strong>" + c.user_name + "</strong>"
+    $("#comments_div").prepend(name_str +": "+ "<span class='comment'>"+c.comment_body + "</span><br><br>")
+  }
+})
 
-// }, 2000);
+}, 2000);
 
 </script>
