@@ -36,8 +36,8 @@ class UsersController < ApplicationController
 		if @user.save
       # Tell the UserMailer to send a welcome email after save
       # UserMailer.welcome_email(@user).deliver
-      domain = 'sandboxab13a54924b44d0185046d49a35a2640.mailgun.org'
-      api_key = 'key-0664c48b5f3a9476227dc0f6f48c3191'
+      domain = ENV['MAILGUN_DOMAIN']
+      api_key = ENV['MAILGUN_API_KEY']
 
       username = 'api'
       password = api_key
