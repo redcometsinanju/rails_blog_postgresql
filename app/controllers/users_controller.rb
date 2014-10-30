@@ -56,7 +56,7 @@ class UsersController < ApplicationController
           Your username is #{@user.username}. 
           <br>
           <br>
-          To login to the site, click <a href='http://localhost:3000'>here</a>.
+          To login to the site, click <a href='https://moodly-app.herokuapp.com/users/new'>here</a>.
           <br>
           <br>
           Thanks for joining!"
