@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user)
     @user = user
     email_with_name = "#{@user.username} <#{@user.email}>"
-    @url  = 'localhost:3000/users/new'
+    @url  = 'https://moodly-app.herokuapp.com/'
     mail(to: email_with_name, subject: 'Welcome to Moodly!')
   end
 end
