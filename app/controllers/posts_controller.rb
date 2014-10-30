@@ -18,6 +18,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments.all
     @comment = @post.comments.build
+    respond_to do |format|
+      format.html {  }
+      format.json { render json: @comments }
+    end
   end
 
   # GET /posts/new
@@ -31,15 +35,24 @@ class PostsController < ApplicationController
 
   # POST /posts
   # POST /posts.json
-  def create
-    @post = current_user.posts.new(post_params)
 
-    # Embedly template for one url
-    news = "http://api.embed.ly/1/extract?key=f981d78d1ca8482abf4f23564435e0ff&url=#{params[:post][:url]}"
+  # Embedly template for one url
+  def embedly_image
+    news = "http://api.embed.ly/1/extract?key=#{ENV["EMBEDLY_KEY"]}&url=#{params[:post][:url]}"
     result = Typhoeus.get(news)
     data = JSON.parse(result.body)
     image_url = data["images"][0]["url"]
     @post.img_url = image_url
+  end
+
+  def create
+    @post = current_user.posts.new(post_params)
+
+    if ENV['EMBEDLY_KEY'].nil?
+      raise ArgumentError.new("There is no EMBEDLY_KEY in the environment!")
+    end
+
+    embedly_image()
 
     respond_to do |format|
       if @post.save
@@ -55,6 +68,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    embedly_image()
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }

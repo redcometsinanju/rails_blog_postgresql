@@ -12,12 +12,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title, "*Title" %><br>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :url, "URL" %><br>
+    <%= f.label :url, "*URL" %><br>
     <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :description, "Issue" %><br>
+    <%= f.text_field :description %>
   </div>
   <div class="field">
     <%= f.label :image, "Image (optional)" %><br>
