@@ -7,7 +7,7 @@ gem 'fog'
 gem 'bcrypt'
 gem 'typhoeus'
 gem 'pry'
-gem 'rails_12factor' #, group: :production
+gem 'rails_12factor', group: :production
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0.beta2'
