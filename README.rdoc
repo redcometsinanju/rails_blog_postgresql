@@ -19,4 +19,4 @@ Languages, frameworks and APIs used:
 * Embedly
 * Bootstrap
 
-Comments are very welcomed.
+Comments are very welcomed and I hope to collaborate with people to extend more features for this app. 
