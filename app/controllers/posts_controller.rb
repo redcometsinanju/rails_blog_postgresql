@@ -4,12 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @allposts = Post.all
-    if current_user
-      @posts = current_user.posts.all
-    else
-      redirect_to new_user_path
-    end
+    @posts = Post.all
   end
 
   # GET /posts/1
@@ -18,10 +13,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments.all
     @comment = @post.comments.build
-    respond_to do |format|
-      format.html {  }
-      format.json { render json: @comments }
-    end
   end
 
   # GET /posts/new
@@ -35,28 +26,12 @@ class PostsController < ApplicationController
 
   # POST /posts
   # POST /posts.json
-
-  # Embedly template for one url
-  def embedly_image
-    news = "http://api.embed.ly/1/extract?key=#{ENV["EMBEDLY_KEY"]}&url=#{params[:post][:url]}"
-    result = Typhoeus.get(news)
-    data = JSON.parse(result.body)
-    image_url = data["images"][0]["url"]
-    @post.img_url = image_url
-  end
-
   def create
-    @post = current_user.posts.new(post_params)
-
-    if ENV['EMBEDLY_KEY'].nil?
-      raise ArgumentError.new("There is no EMBEDLY_KEY in the environment!")
-    end
-
-    embedly_image()
+    @post = Post.new(post_params)
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
+        format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new }
@@ -68,7 +43,6 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    embedly_image()
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
@@ -98,6 +72,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :image, :url)
+      params.require(:post).permit(:title, :description, :image)
     end
 end
