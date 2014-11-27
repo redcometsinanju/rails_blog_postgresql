@@ -1,27 +1,66 @@
-<p id="notice"><%= notice %></p>
-
 <div class="row">
-  <div class="col-md-9">
-    <%= image_tag(@post.image_url, width: '100%') if @post.image.present? %>
+  <div class="col-md-2">
+    <%= image_tag(@post.img_url, width: '100%') if @post.img_url.present? %>
   </div>
 
-  <div class="col-md-3">
-    <p><b>Title: </b><%= @post.title %></p>
-    <p><b>Description: </b><%= @post.description %></p>
+  <div class="col-md-10">
+    <h4 style="display:inline">Title: </h4><h3 style="display:inline"><%= link_to @post.title, @post.url %></h3>
+    <br>
+    <br>
+    <h4 style="display:inline">Issue: </h4><h3 style="display:inline"><%= @post.description %></h3>
+    <br>
+    <br>
     <p>
-      <%= link_to 'Edit', edit_post_path(@post) %> |
-      <%= link_to 'Delete', @post, data: { confirm: 'Are you sure?' }, method: :delete %> |
-      <%= link_to 'Back', posts_path %>
+      <% if current_user.id == @post.user_id %> 
+        <%= link_to 'Edit', edit_post_path(@post) %> |
+        <%= link_to 'Delete', @post, data: { confirm: 'Are you sure?' }, method: :delete %> |
+        <%= link_to 'Back', posts_path %>
+      <% end %>
     </p>
-    <h4>Comments</h4>
-      <% @comments.each do |comment| %>
-        <div>
-        <strong><%= comment.user_name %></strong>
-        <br />
-        <p><%= comment.comment_body %></p>
-        <p><%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %></p>
+    <br>
+
+    <div class="row">
+      <div class="col-md-10">
+        <%= render 'comments/form' %>
+        <h3>Comments</h3>
+        <hr>
+        <div id="comments_div">
+        <% @comments.reverse.each do |comment| %>
+          <div class="comment">
+            <strong><%= comment.user_name %></strong>:
+            <%= comment.comment_body %>
+            <% if current_user.id == comment.user_id %> 
+              <%= link_to 'Delete', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </div>
+          <br>
+        <% end %>
+        </div>
       </div>
-     <% end %>
-     <%= render 'comments/form' %>
+    </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+
+setInterval(function(){
+  var request = $.ajax({
+  url: '/posts/<%=@post.id%>',
+  type: "GET",
+  dataType: "json"
+});
+console.log(request)
+
+request.done(function(data){
+  var num_comments = $(".comment").length
+  if(data.length > num_comments){
+    var c = data[data.length-1]
+    var name_str = "<strong>" + c.user_name + "</strong>"
+    $("#comments_div").prepend(name_str +": "+ "<span class='comment'>"+c.comment_body + "</span><br><br>")
+  }
+})
+
+}, 2000);
+
+</script>

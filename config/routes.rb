@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
   
   root :to => redirect('/posts')
-  resources :comments
+  resources :users
   resources :posts
+  resources :comments
+  # resources :sessions
+  post 'sessions' => 'sessions#create'
+  delete 'sessions' => 'sessions#destroy'
+
+  post 'users/invite' => 'users#invite'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
