@@ -1,22 +1,28 @@
 == README
 
-This is a discussion board mini social network app. Like a social network, users can find and add friends. Like a blog, people can post interesting news, articles, photos or simply start a discussion by posting a question. And like a blog, people can post comments on the topic. However, this app is made more like an instant messenger, where comments made by one user is instantly updated across all users, across all devices. Boards can be public or private (next iteration).
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-http://moodly-app.herokuapp.com/
+Things you may want to cover:
 
-Languages, frameworks and APIs used:
-* Ruby
-* Rails
-* bcrypt
-* typhoeus
-* fog
-* mini_magick
-* carrierwave
-* Amazon S3
-* jQuery
-* Feedzilla
-* Mailgun
-* Embedly
-* Bootstrap
+* Ruby version
 
-Comments are very welcomed.
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
